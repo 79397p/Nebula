@@ -18,9 +18,12 @@ public class Moves {
         }
 
         if (i == 12){
-            Moves.printBoard(board);
+            printBoard(Play.thirdLastBoard);
+            printBoard(Play.secondLastBoard);
+            printBoard(Play.lastBoard);
+            printBoard(board);
             System.out.println("king is captured");
-            System.out.print(turn);
+            System.out.println(Play.gameOn);
             return false;
         }
 
@@ -65,26 +68,26 @@ public class Moves {
         while (board[u + 11] == 0){
             u += 11;
         }
-        if(board[u + 11]*turn == -4 || board[u + 11]*turn == -9) {
+        if(board[u + 11]*turn == -3 || board[u + 11]*turn == -9) {
             return true;
         }
         while (board[d + 13] == 0){
             d += 13;
         }
-        if(board[d + 13]*turn == -4 || board[d + 13]*turn == -9){
+        if(board[d + 13]*turn == -3 || board[d + 13]*turn == -9){
             return true;
         }
         while (board[l - 11] == 0){
             l -= 11;
         }
-        if(board[l - 11]*turn == -4 || board[l - 11]*turn == -9){
+        if(board[l - 11]*turn == -3 || board[l - 11]*turn == -9){
             return true;
         }
 
         while (board[r - 13] == 0){
             r -= 13;
         }
-        if(board[r - 13]*turn == -4 || board[r - 13]*turn == -9){
+        if(board[r - 13]*turn == -3 || board[r - 13]*turn == -9){
             return true;
         }
 
@@ -98,28 +101,28 @@ public class Moves {
         }
 
         //HORSIE:
-        if (board[i + 14]*turn == -3){
+        if (board[i + 14]*turn == -4){
             return true;
         }
-        if (board[i + 10]*turn == -3){
+        if (board[i + 10]*turn == -4){
             return true;
         }
-        if (board[i + 25]*turn == -3){
+        if (board[i + 25]*turn == -4){
             return true;
         }
-        if (board[i + 23]*turn == -3){
+        if (board[i + 23]*turn == -4){
             return true;
         }
-        if (board[i - 14]*turn == -3){
+        if (board[i - 14]*turn == -4){
             return true;
         }
-        if (board[i - 25]*turn == -3){
+        if (board[i - 25]*turn == -4){
             return true;
         }
-        if (board[i -23]*turn == -3){
+        if (board[i -23]*turn == -4){
             return true;
         }
-        if (board[i -10]*turn == -3){
+        if (board[i -10]*turn == -4){
             return true;
         }
 
@@ -152,7 +155,7 @@ public class Moves {
         if(board[i + 11]*turn == -99){
             return true;
         }
-        if(board[i + 11]*turn == -99){
+        if(board[i - 11]*turn == -99){
             return true;
         }
 
@@ -175,16 +178,17 @@ public class Moves {
                 //System.out.println("addedRook");
                 results.addAll(addValidRookMoves(i, board, turn));
             }
-            else if (piece*turn == 4){
+            else if (piece*turn == 3){
                 //System.out.println("addedBishop");
                 results.addAll(addValidBisshopMoves(i, board, turn));
             }
-            else if (piece*turn == 3){
+            else if (piece*turn == 4){
                 //System.out.println("addedKnight");
                 results.addAll(addValidKnightMoves(i, board, turn));
             }
             else if (piece*turn == 99){
-                //System.out.println("addedKing");
+                //
+
                 results.addAll(addValidKingMoves(i, board, turn));
             }
             else if (piece*turn == 9){
@@ -494,11 +498,11 @@ public class Moves {
                 results.add(b);
             }
         }
-        if (board[i-1]*turn <= 0 && board[i-1] != 66){
-            int [] b = copy(board);
-            b[i-1] = b[i];
+        if (board[i-1]*turn <= 0 && board[i-1] != 66) {
+            int[] b = copy(board);
+            b[i - 1] = b[i];
             b[i] = 0;
-            if(! isInCheck(b, turn)) {
+            if (!isInCheck(b, turn)) {
                 results.add(b);
             }
         }
@@ -551,6 +555,7 @@ public class Moves {
             }
         }
         return results;
+
     }
 
     public static void printBoard(int[] board){
@@ -565,7 +570,7 @@ public class Moves {
         }
     }
 
-    public String toString(int [] b, int turn){
+    public static String toString(int [] b, int turn){
         String s = Integer.toString(turn);
         for(int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
