@@ -12,7 +12,6 @@ public class Play {
     public static int[] secondLastBoard;
     public static int[] lastBoard;
 
-
     public static int count = 0;
 
 
@@ -48,7 +47,7 @@ public class Play {
         gameOn= true;
         int[] mv = board;
         int i = 1;
-        int turn = -1;
+        int turn = 1;
         while (i < 6 & gameOn){
             mv = choose(mv, turn);
             Moves.printBoard(mv);
@@ -62,10 +61,12 @@ public class Play {
     }
 
     public static int[] choose(int[] board, int turn){
+
+        int alpha = -10000;
+        int beta = 10000;
+
         lastBoard = board;
         ArrayList<int[]> moves = Moves.expand(board, turn);
-
-
 
         if(moves.size() == 0){
             gameOn = false;
@@ -154,6 +155,7 @@ public class Play {
         if (! memory.containsKey(key) || memory.get(key)[0] > depth) {
             memory.put(key, new int[] {depth, evaluation});
         }
+
         return evaluation;
     }
 }
